@@ -1,9 +1,9 @@
 package com.forfries.backend.service;
 
-import com.forfries.backend.entity.Result;
+import com.forfries.backend.entity.File;
 
 import java.io.InputStream;
 
 public interface FileUploadService {
-    String uploadFile(InputStream inputStream, String originalFilename);
+    File uploadFile(InputStream inputStream, String originalFilename, long size);
 }

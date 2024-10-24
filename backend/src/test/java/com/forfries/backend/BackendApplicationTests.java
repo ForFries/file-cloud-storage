@@ -17,7 +17,7 @@ class BackendApplicationTests {
         String fileName = "1.txt";
         InputStream inputStream = new FileInputStream(filePath);
         FileUploadServiceImplOSS ossFileUploadService = new FileUploadServiceImplOSS();
-        ossFileUploadService.uploadFile(inputStream, fileName);
+        ossFileUploadService.uploadFile(inputStream, fileName,1);
     }
 
 }

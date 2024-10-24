@@ -4,6 +4,7 @@ import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.ClientException;
 import com.aliyun.oss.model.PutObjectRequest;
+import com.forfries.backend.entity.File;
 import com.forfries.backend.service.FileUploadService;
 import com.forfries.backend.util.OSSClientUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +18,12 @@ import java.util.UUID;
 public class FileUploadServiceImplOSS implements FileUploadService {
 
     @Override
-    public String uploadFile(InputStream inputStream, String originalFilename) {
+    public File uploadFile(InputStream inputStream, String originalFilename, long fileSize) {
         // 创建OSSClient实例
 
         OSS ossClient = OSSClientUtil.createOSSClient();
+
+
 
         // 使用UUID作为文件名
         String uuid = UUID.randomUUID().toString();
@@ -34,7 +37,17 @@ public class FileUploadServiceImplOSS implements FileUploadService {
             ossClient.putObject(putObjectRequest);
 
             log.info("上传文件成功，文件名：{}",originalFilename);
-            return "https://" + OSSClientUtil.getBUCKET_NAME() + "." + OSSClientUtil.getENDPOINT() + "/" + objectName;
+
+            String fileUrl ="https://" + OSSClientUtil.getBUCKET_NAME() + "." + OSSClientUtil.getENDPOINT() + "/" + objectName;
+
+            File res = new File();
+            res.setFileUrl(fileUrl);
+            res.setUuidFileName(objectName);
+            res.setOriginalFileName(originalFilename);
+            res.setFileType(fileExtension);
+            res.setFileSize(fileSize);
+
+            return res;
 
         } catch (OSSException oe) {
 

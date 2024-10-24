@@ -1,6 +1,8 @@
 package com.forfries.backend.controller;
 
+import com.forfries.backend.entity.File;
 import com.forfries.backend.entity.Result;
+import com.forfries.backend.service.FileService;
 import com.forfries.backend.service.FileUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,19 @@ public class FileUploadController {
     @Autowired
     private FileUploadService fileUploadService ;
 
+    @Autowired
+    private FileService fileService ;
+
     @PostMapping("/upload")
     public Result<String> uploadFile(@RequestParam("file") MultipartFile file) {
         try {
+
             // 调用服务上传文件，并获取返回结果
-            return Result.success(fileUploadService.uploadFile(file.getInputStream(), file.getOriginalFilename()));
+            File newfile = fileUploadService.uploadFile(file.getInputStream(), file.getOriginalFilename(),file.getSize());
+
+            fileService.createFile(newfile);
+
+            return Result.success(newfile.getFileUrl());
         } catch (IOException e) {
             return Result.failure("文件上传失败: " + e.getMessage());
         }

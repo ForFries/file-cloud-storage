@@ -1,27 +1,51 @@
 <template>
-  <el-button type="primary" @click="uploadFiles">确认上传</el-button>
-  <el-button type="danger" @click="clearFiles">取消</el-button>
-  <el-upload
-      class="upload-demo"
-      ref="uploadRef"
-      drag
-      action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15"
-      multiple
-      :auto-upload="false"
-      :before-upload="beforeUpload"
-  >
-    <el-icon class="el-icon--upload"><upload-filled /></el-icon>
-    <div class="el-upload__text">
-      Drop file here or <em>click to upload</em>
-    </div>
-    <template #tip>
-      <div class="el-upload__tip">
-        可以上传任意文件
+  <el-row justify="center">
+    <el-col :span="24">
+      <div class="button-container">
+        <el-button type="primary" @click="uploadFiles">确认上传</el-button>
+        <el-button type="danger" @click="clearFiles">取消</el-button>
       </div>
-    </template>
-  </el-upload>
+    </el-col>
+  </el-row>
+<el-row justify="space-around">
+  <el-col :span="24">
+    <div>
+      <el-upload
+          class="upload-demo"
+          ref="uploadRef"
+          drag
+          action="/api/file/upload"
+          multiple
+          :data="uploadParams"
+          :auto-upload="false"
+          :before-upload="beforeUpload"
+      >
+        <el-icon class="el-icon--upload"><upload-filled /></el-icon>
+        <div class="el-upload__text">
+          Drop file here or <em>click to upload</em>
+        </div>
+        <template #tip>
+          <div class="el-upload__tip">
+            可以上传任意文件
+          </div>
+        </template>
+      </el-upload>
+    </div>
+  </el-col>
+</el-row>
 
 </template>
+
+<style scoped>
+.el-row {
+  margin-bottom: 10px;
+}
+.button-container {
+  display: flex;
+  justify-content: center; /* 水平居中 */
+  gap: 10px; /* 按钮之间的间距 */
+}
+</style>
 
 <script setup lang="ts">
 import { UploadFilled } from '@element-plus/icons-vue'
@@ -31,9 +55,12 @@ import {ref} from "vue";
 // 获取 el-upload 的 ref
 const uploadRef = ref(null)
 
+// const uploadParams = ref({
+//   directoryId: '1',  // 附加的数据，例如文件存储目录
+//   userId: admin,  // 附加数据：用户 ID
+// });
 // 提交上传
 const uploadFiles = () => {
-
   uploadRef.value.submit()  // 调用 el-upload 的 submit 方法手动上传文件
 }
 
