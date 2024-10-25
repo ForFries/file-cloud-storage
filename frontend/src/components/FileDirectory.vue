@@ -13,7 +13,7 @@
         </template>
       </el-table-column>
 
-      <el-table-column prop="fileSize" label="Size (KB)" width="120">
+      <el-table-column prop="fileSize" label="Size (Byte)" width="120">
         <template #default="scope">
           <!-- 检查 scope.row 是否存在且是文件 -->
           <span v-if="scope.row && scope.row.type === 'file'">

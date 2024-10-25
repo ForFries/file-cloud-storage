@@ -1,5 +1,6 @@
 package com.forfries.backend;
 
+import com.forfries.backend.exception.BaseException;
 import com.forfries.backend.service.impl.FileUploadServiceImplOSS;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +13,7 @@ import java.io.InputStream;
 class BackendApplicationTests {
 
     @Test
-    void Osstest() throws FileNotFoundException {
+    void osstest() throws FileNotFoundException {
         String filePath = "D:\\Test\\1.txt";
         String fileName = "1.txt";
         InputStream inputStream = new FileInputStream(filePath);
@@ -20,4 +21,8 @@ class BackendApplicationTests {
         ossFileUploadService.uploadFile(inputStream, fileName,1);
     }
 
+    @Test
+    void exceptionTest() {
+        throw new BaseException("test");
+    }
 }

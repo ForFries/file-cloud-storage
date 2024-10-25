@@ -18,7 +18,7 @@ public class Result<T> {
         return new Result<>(0, "操作成功", data);
     }
 
-    public static <T> Result<T> failure(String message) {
+    public static <T> Result<T> fail(String message) {
         return new Result<>(1, message, null);
     }
 

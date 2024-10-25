@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Slf4j
 @Service
-public class FileUploadServiceImplOSS implements FileUploadService {
+public class FileUploadServiceImplOSS implements FileUploadService{
 
     @Override
     public File uploadFile(InputStream inputStream, String originalFilename, long fileSize) {
